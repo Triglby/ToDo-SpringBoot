@@ -31,17 +31,16 @@ public class TodoController {
 	
 	//PUT
 	@RequestMapping(value = "api/{id}", method = RequestMethod.PUT)
-	public String updateTodo(@RequestBody Todo newTodo, @PathVariable Long id) {
+	public String updateTodo(@PathVariable("id") long id) {
 		Todo todo = todoRepository.findById(id).get();
-		todo.setTaskDesc(newTodo.getTaskDesc());
-		todo.setTaskDone(newTodo.getTaskDone());
+		todo.setTaskDone(!todo.getTaskDone());
 		todoRepository.save(todo);
 		return "task updated";
 	}
 	
 	//DELETE
 	@RequestMapping(value = "api/{id}", method = RequestMethod.DELETE)
-	public String deleteTodo(@PathVariable Long id) {
+	public String deleteTodo(@PathVariable("id") long id) {
 		todoRepository.deleteById(id);
 		return "task deleted";
 	}

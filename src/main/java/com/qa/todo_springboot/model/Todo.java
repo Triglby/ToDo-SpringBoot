@@ -12,24 +12,20 @@ public class Todo {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String taskDesc;
-	private boolean taskDone = false;
+	private boolean taskDone;
 	
 	public Todo() {
 		
 	}
 	
-	public Todo(Long id, String taskDesc, boolean taskDone) {
-		this.id = id;
+	public Todo(String taskDesc) {
+		this.id = getId();
 		this.taskDesc = taskDesc;
-		this.taskDone = taskDone;
+		this.taskDone = false;
 	}
 
 	public Long getId() {
 		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getTaskDesc() {
