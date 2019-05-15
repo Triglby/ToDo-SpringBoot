@@ -11,26 +11,27 @@ import com.qa.todo_springboot.model.Todo;
 import com.qa.todo_springboot.repository.TodoRepository;
 
 @RestController
+@RequestMapping("/api/")
 public class TodoController {
 
 	@Autowired
 	private TodoRepository todoRepository;
 	
 	//GET
-	@RequestMapping(value = "api", method = RequestMethod.GET)
+	@RequestMapping(value = "get", method = RequestMethod.GET)
 	public Iterable<Todo> list() {
 		return todoRepository.findAll();
 	}
 	
 	//POST
-	@RequestMapping(value = "api", method = RequestMethod.POST)
+	@RequestMapping(value = "add", method = RequestMethod.POST)
 	public String createTodo(@RequestBody Todo todo) {
 		todoRepository.save(todo);
 		return "added to list";
 	}
 	
 	//PUT
-	@RequestMapping(value = "api/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "update/{id}", method = RequestMethod.PUT)
 	public String updateTodo(@PathVariable("id") long id) {
 		Todo todo = todoRepository.findById(id).get();
 		todo.setTaskDone(!todo.getTaskDone());
@@ -39,7 +40,7 @@ public class TodoController {
 	}
 	
 	//DELETE
-	@RequestMapping(value = "api/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
 	public String deleteTodo(@PathVariable("id") long id) {
 		todoRepository.deleteById(id);
 		return "task deleted";
